@@ -1,16 +1,24 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
+      <h3 class="text-center p-2 mb-2">Register</h3>
       <img
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         class="profile-img-card"
       />
-      <h3>Forgot Password</h3>
-      <form name="form" @submit.prevent="forgetPassword">
+      <form name="form" @submit.prevent="userRegistration">
         <div class="form-group">
-          <label for="username">Email address</label>
+          <label for="username">Name</label>
+          <input v-model="user.name" type="email" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="useremail">Email address</label>
           <input v-model="user.email" type="email" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input v-model="user.password" type="password" class="form-control" />
         </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">
@@ -18,8 +26,14 @@
               v-show="loading"
               class="spinner-border spinner-border-sm"
             ></span>
-            <span>Reset Password</span>
+            <span>Register</span>
           </button>
+        </div>
+        <div class="form-group">
+          <p class="forgot-password text-right">
+            Already registered
+            <router-link :to="{ name: 'login' }">sign in?</router-link>
+          </p>
         </div>
       </form>
     </div>
@@ -33,23 +47,28 @@ export default {
   data() {
     return {
       user: {
+        name: "",
         email: "",
+        password: "",
       },
     };
   },
   methods: {
-    forgetPassword() {
+    userRegistration() {
       firebase
         .auth()
-        .sendPasswordResetEmail(this.user.email)
-        .then(() => {
-          alert("Check your registered email to reset the password!");
-          this.user = {
-            email: "",
-          };
+        .createUserWithEmailAndPassword(this.user.email, this.user.password)
+        .then((res) => {
+          res.user
+            .updateProfile({
+              displayName: this.user.name,
+            })
+            .then(() => {
+              this.$router.push("/login");
+            });
         })
         .catch((error) => {
-          alert(error);
+          alert(error.message);
         });
     },
   },

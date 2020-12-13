@@ -1,27 +1,21 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
+      <h3 class="text-center p-2 mb-2 bg-warning text-white">Welcome</h3>
       <img
         id="profile-img"
         src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
         class="profile-img-card"
       />
-      <h3>Forgot Password</h3>
-      <form name="form" @submit.prevent="forgetPassword">
-        <div class="form-group">
-          <label for="username">Email address</label>
-          <input v-model="user.email" type="email" class="form-control" />
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="loading">
-            <span
-              v-show="loading"
-              class="spinner-border spinner-border-sm"
-            ></span>
-            <span>Reset Password</span>
-          </button>
-        </div>
-      </form>
+      <p>{{ user.displayName }}</p>
+      <p>{{ user.email }}</p>
+      <button
+        type="submit"
+        class="btn btn-dark btn-lg btn-block"
+        @click="logOut()"
+      >
+        Log out
+      </button>
     </div>
   </div>
 </template>
@@ -32,24 +26,27 @@ import firebase from "firebase";
 export default {
   data() {
     return {
-      user: {
-        email: "",
-      },
+      user: null,
     };
   },
+  created() {
+    var user = firebase.auth().currentUser;
+
+    if (user) {
+      // User is signed in.
+      this.user = user;
+    } else {
+      // No user is signed in.
+      this.user = null;
+    }
+  },
   methods: {
-    forgetPassword() {
+    logOut() {
       firebase
         .auth()
-        .sendPasswordResetEmail(this.user.email)
+        .signOut()
         .then(() => {
-          alert("Check your registered email to reset the password!");
-          this.user = {
-            email: "",
-          };
-        })
-        .catch((error) => {
-          alert(error);
+          this.$router.push("/login");
         });
     },
   },

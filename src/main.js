@@ -1,23 +1,30 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import firebase from 'firebase';
+import Vue from "vue";
+import App from "./App.vue";
+import router from "./router";
+import firebase from "firebase";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@/assets/main.css";
 
-import 'bootstrap/dist/css/bootstrap.min.css'
-import '@/assets/main.css'
+Vue.config.productionTip = false;
 
+const firebaseConfig = {
+  apiKey: "AIzaSyBmuhGmAn5MF3jx4k6LAbdbv6yi56RvMZE",
+  authDomain: "newsrssapp.firebaseapp.com",
+  databaseURL: "https://newsrssapp.firebaseio.com",
+  projectId: "newsrssapp",
+  storageBucket: "newsrssapp.appspot.com",
+  messagingSenderId: "879955215758",
+  appId: "1:879955215758:web:23d00154413a56409490df",
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
-
-Vue.config.productionTip = false
-
-
- const firebaseConfig = process.env.FIREBASE_CONFIG;
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-
-
-new Vue({
+let app = new Vue({
   router,
-  render: h => h(App)
-}).$mount('#app')
+  render: (h) => h(App),
+});
+
+firebase.auth().onAuthStateChanged(() => {
+  app.$mount("#app");
+});
