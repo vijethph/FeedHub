@@ -2,10 +2,12 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import firebase from "firebase";
-
+import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/assets/main.css";
+import VueSocialSharing from "vue-social-sharing";
 
+Vue.use(VueSocialSharing);
 Vue.config.productionTip = false;
 
 const firebaseConfig = {

@@ -10,7 +10,7 @@
       <form name="form" @submit.prevent="userRegistration">
         <div class="form-group">
           <label for="username">Name</label>
-          <input v-model="user.name" type="email" class="form-control" />
+          <input v-model="user.name" type="text" class="form-control" />
         </div>
         <div class="form-group">
           <label for="useremail">Email address</label>
