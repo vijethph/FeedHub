@@ -5,8 +5,7 @@
     <!-- Main -->
     <div class="App">
       <Navbar />
-          <router-view />
-        
+      <router-view />
     </div>
   </div>
 </template>

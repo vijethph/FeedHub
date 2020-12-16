@@ -35,6 +35,12 @@ const routes = [
     component: () => import("../components/Dashboard.vue"),
     meta: { requiresAuth: true },
   },
+  {
+    path: "/news",
+    name: "news",
+    component: () => import("../components/News.vue"),
+    meta: { requiresAuth: true },
+  },
 ];
 
 const router = new VueRouter({
