@@ -5,7 +5,7 @@
     <!-- Main -->
     <div class="App">
       <Navbar />
-      <router-view />
+      <router-view class="pt-5"/>
     </div>
   </div>
 </template>

@@ -41,6 +41,12 @@ const routes = [
     component: () => import("../components/News.vue"),
     meta: { requiresAuth: true },
   },
+  {
+    path: "/rssfeeds",
+    name: "rssfeeds",
+    component: () => import("../components/FeedComponent.vue"),
+    meta: { requiresAuth: true },
+  },
 ];
 
 const router = new VueRouter({

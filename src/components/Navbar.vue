@@ -38,6 +38,11 @@
           </router-link>
         </li>
         <li class="nav-item" v-if="isLoggedIn">
+          <router-link to="/rssfeeds" class="nav-link">
+            RSS Feeds
+          </router-link>
+        </li>
+        <li class="nav-item" v-if="isLoggedIn">
           <router-link to="/dashboard" class="nav-link">
             Dashboard
           </router-link>
