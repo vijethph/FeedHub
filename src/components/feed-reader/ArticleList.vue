@@ -65,4 +65,7 @@ export default {
   -ms-flex-wrap: nowrap;
     flex-wrap: nowrap;
 }
+.nav-pills > .active{
+    background-color: #ade8f4;
+}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <Sidebar :api_key="api_key" @selectsource="setResource" />
+      <Sidebar :api_key="api_key" @selectsource="setResource" :useremail="user.email"/>
     </div>
     <div class="offset-md-2 col-md-8">
       <div class="card my-5" v-for="article in articles" :key="article.title">

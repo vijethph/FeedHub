@@ -43,6 +43,8 @@
 <script>
 import firebase from "firebase";
 
+const db = firebase.firestore();
+
 export default {
   data() {
     return {
@@ -59,6 +61,12 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.user.email, this.user.password)
         .then((res) => {
+          db.collection('userfavs').doc(firebase.auth().currentUser.uid).add({  useremail:this.user.email, newssources:[], rssfeeds: []  }).then(() => {
+            console.log("Users Document successfully written!");
+          })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
           res.user
             .updateProfile({
               displayName: this.user.name,

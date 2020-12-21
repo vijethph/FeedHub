@@ -22,6 +22,8 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+//const db = firebase.firestore();
+
 let app = new Vue({
   router,
   render: (h) => h(App),

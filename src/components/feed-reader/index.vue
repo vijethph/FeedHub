@@ -1,5 +1,14 @@
 <template>
+  <div>
   <div class="container-fluid">
+    <button
+      type="button"
+      class="btn btn-warning float-right"
+      data-toggle="modal"
+      data-target="#exampleModal"
+    >
+      Add RSS Feeds
+    </button>
     <Loading :isLoading="isLoading" />
     <div v-if="!isLoading" class="row">
       <FeedList
@@ -16,6 +25,62 @@
 
       <SingleArticle :article="selectedArticle" />
     </div>
+
+    
+  </div>
+  
+  <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add RSS Feeds</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label for="basic-url">Enter RSS Feed URL</label>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="basic-url"
+                v-model="addurl"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              v-on:click="addRSSUrl"
+            >
+              Add URL
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
   </div>
 </template>
 
@@ -25,6 +90,10 @@ import FeedList from "./FeedList.vue";
 import ArticleList from "./ArticleList.vue";
 import SingleArticle from "./SingleArticle.vue";
 import Loading from "./Loading.vue";
+import firebase from "firebase";
+
+const db = firebase.firestore();
+
 export default {
   name: "FeedReader",
   components: { ArticleList, FeedList, SingleArticle, Loading },
@@ -32,6 +101,7 @@ export default {
   data() {
     return {
       rssurls: ["https://hnrss.org/frontpage", "https://www.reddit.com/.rss"],
+      addurl: "",
       isLoading: false,
       feeds: [],
       articles: [],
@@ -40,23 +110,61 @@ export default {
     };
   },
   created() {
-    this.getFeeds();
+    db.collection("userfavs")
+      .doc(firebase.auth().currentUser.uid)
+      .get()
+      .then((doc) => {
+        if (!doc.exists) {
+          console.log("oh no.. no doc found");
+        } else {
+          console.log("hooray, doc found", doc.data().rssfeeds);
+          this.rssurls = doc.data().rssfeeds;
+
+          //console.log('modified array: ',this.rssurls);
+        }
+
+        this.getFeeds();
+      })
+      .catch(function(error) {
+        console.log("Error getting document:", error);
+      });
   },
 
   methods: {
-    async getFeeds() {
+    /*
+    async getURLs() {
+      const rssRef = db
+        .collection("userfavs")
+        .doc(firebase.auth().currentUser.uid);
+      const doc = await rssRef.get();
+      if (!doc.exists) { console.log('oh no.. no doc found');
+      } else {
+        console.log('hooray, doc found',doc.data().rssfeeds);
+        this.rssurls = doc.data().rssfeeds;
+
+        console.log('modified array: ',this.rssurls);
+        //this.getFeeds();
+      }
+    },
+    */
+    getFeeds() {
+      // console.log('before making axios request',this.rssurls);
       let body = {
         feeds: this.rssurls,
       };
 
       this.isLoading = true;
 
-      let { data } = await axios.post("http://localhost:5000/rssfeeds", body);
-
-      console.log(data);
-
-      this.feeds = data;
-      this.isLoading = false;
+      axios
+        .post("http://localhost:5000/rssfeeds", body)
+        .then((response) => {
+          this.feeds = response.data;
+          console.log("got rss feeds", response.data);
+          this.isLoading = false;
+        })
+        .catch((e) => {
+          console.log("axios post req failed", e);
+        });
     },
 
     handleSelectArticle(article) {
@@ -67,6 +175,24 @@ export default {
       this.selectedFeed = feed;
       this.articles = feed.items;
       this.selectedArticle = null;
+    },
+    addRSSUrl() {
+      console.log(this.addurl);
+      this.rssurls.push(this.addurl);
+
+      db.collection("userfavs")
+        .doc(firebase.auth().currentUser.uid)
+        .update({
+          rssfeeds: firebase.firestore.FieldValue.arrayUnion(this.addurl),
+        })
+        .then(function() {
+          console.log("Document successfully updated!");
+        })
+        .catch(function(error) {
+          // The document probably doesn't exist.
+          console.error("Error updating document: ", error);
+        });
+      //console.log("whatever the hell is this", unionRes);
     },
   },
 };

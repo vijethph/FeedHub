@@ -15,7 +15,7 @@ export default {
         "no-underline p-2 block border-grey border border-b-0 nav-link";
 
       if (this.isActive) {
-        classes += " bg-dark text-white active";
+        classes += " bg-light text-dark active";
       } else {
         classes += " text-warning hover:bg-warning";
       }

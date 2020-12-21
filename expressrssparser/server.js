@@ -25,7 +25,12 @@ app.post('/rssfeeds', (req, res) => {
       // res.setHeader('Access-Control-Allow-Origin', 'some-domain-to-allow.com');
       res.header('Access-Control-Allow-Methods', 'POST');
       res.json(response);
-    })
+    }).catch(error => {
+        console.log(error);
+        res.status(400);
+        res.send( { message: error});
+        
+    });
     
   })
   
