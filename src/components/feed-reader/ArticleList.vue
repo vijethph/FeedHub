@@ -1,6 +1,6 @@
 <template>
   <div v-if="articles && articles.length" tabindex="-1" class="col-md-4">
-    <h2 class="mb-4 text-white">Articles</h2>
+    <h2 class="mb-2 text-white">Articles</h2>
     <!--
     <div v-for="item in articles" :key="item.title" class="btn btn-outline-primary btn-md btn-block">
 				<Link
@@ -10,9 +10,13 @@
         />
 	</div> 
 	-->
-    
-    <ul class="nav flex-column nav-pills customd">
-      <li v-for="item in articles" :key="item.title" class="nav-item p-2">
+
+    <ul class="nav flex-column nav-pills customd bg-dark">
+      <li
+        v-for="item in articles"
+        :key="item.title"
+        class="nav-item p-2 text-white"
+      >
         <Link
           @click.native="selectArticle(item)"
           :isActive="isActive(item.title)"
@@ -20,7 +24,6 @@
         />
       </li>
     </ul>
-    
   </div>
 </template>
 
@@ -60,12 +63,12 @@ export default {
 </script>
 <style scoped>
 .customd {
-  height: 350px;
+  height: 50vh;
   overflow-y: auto;
   -ms-flex-wrap: nowrap;
-    flex-wrap: nowrap;
+  flex-wrap: nowrap;
 }
-.nav-pills > .active{
-    background-color: #ade8f4;
+.nav-pills > .active {
+  background-color: #ade8f4;
 }
 </style>

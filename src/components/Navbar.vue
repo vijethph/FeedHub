@@ -2,7 +2,10 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <button
       class="navbar-toggler d-md-block"
-      v-if="isLoggedIn"
+      v-if="
+        isLoggedIn &&
+          (this.$route.name === 'rssfeeds' || this.$route.name === 'news')
+      "
       type="button"
       data-toggle="collapse"
       data-target="#sidebar"
@@ -30,9 +33,6 @@
     <div class="navbar-collapse collapse" id="navbarTogglerDemo02">
       <div class="navbar-nav ml-auto">
         <li class="nav-item" v-if="isLoggedIn">
-          <span class="nav-link ">{{ currentUser }}</span>
-        </li>
-        <li class="nav-item" v-if="isLoggedIn">
           <router-link to="/news" class="nav-link">
             News
           </router-link>
@@ -42,12 +42,14 @@
             RSS Feeds
           </router-link>
         </li>
-        
-        
+
         <li class="nav-item" v-if="isLoggedIn">
           <router-link to="/dashboard" class="nav-link">
             Dashboard
           </router-link>
+        </li>
+        <li class="nav-item" v-if="isLoggedIn">
+          <span class="nav-link ">{{ currentUser }}</span>
         </li>
         <li v-if="!isLoggedIn" class="nav-item">
           <router-link to="/login" class="nav-link">Login</router-link>

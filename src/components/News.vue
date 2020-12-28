@@ -1,70 +1,76 @@
 <template>
-  <div class="row">
-    <div class="col-12">
-      <Sidebar :api_key="api_key" @selectsource="setResource" :useremail="user.email"/>
-    </div>
-    <div class="offset-md-2 col-md-8">
-      <div class="card my-5" v-for="article in articles" :key="article.title">
-        <img
-          class="card-img-top"
-          alt="Card image cap"
-          v-bind:src="article.urlToImage"
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <Sidebar
+          :api_key="api_key"
+          @selectsource="setResource"
+          :useremail="user.email"
         />
-        <div class="card-body">
-          <h5 class="card-title">{{ article.title }}</h5>
-          <p class="card-text">
-            {{ article.description }}
-          </p>
-          <div class="row align-items-center text-center">
-            <div class="col-xs-12 col-md-4">
-              <span class="badge badge-pill badge-dark"
-                >Source: {{ article.source.name }}</span
-              >
-            </div>
-            <div class="col-xs-12  col-md-4">
-              <ul class="social-network social-circle">
-                <li>
-                  <ShareNetwork
-                    network="facebook"
-                    url="{article.url}"
-                    title="{article.title}"
-                    description="{article.description}"
-                  >
-                    <i class="fa fa-facebook icoFacebook"></i>
-                  </ShareNetwork>
-                </li>
-                <li>
-                  <ShareNetwork
-                    network="twitter"
-                    url="{article.url}"
-                    title="{article.title}"
-                  >
-                    <i class="fa fa-twitter icoTwitter"></i>
-                  </ShareNetwork>
-                </li>
-                <li>
-                  <ShareNetwork
-                    network="reddit"
-                    url="{article.url}"
-                    title="{article.title}"
-                  >
-                    <i class="fa fa-reddit icoReddit"></i>
-                  </ShareNetwork>
-                </li>
-                <li>
-                  <ShareNetwork network="linkedin" url="{article.url}">
-                    <i class="fa fa-linkedin icoLinkedin"></i>
-                  </ShareNetwork>
-                </li>
-              </ul>
-            </div>
-            <div class="col-xs-12 col-md-4">
-              <a
-                v-bind:href="article.url"
-                target="_blank"
-                class="card-link float-md-right"
-                >Read more...</a
-              >
+      </div>
+      <div class="offset-md-2 col-md-8">
+        <div class="card my-5" v-for="article in articles" :key="article.title">
+          <img
+            class="card-img-top"
+            alt="Card image cap"
+            v-bind:src="article.urlToImage"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title }}</h5>
+            <p class="card-text">
+              {{ article.description }}
+            </p>
+            <div class="row align-items-center text-center">
+              <div class="col-xs-12 col-md-4">
+                <span class="badge badge-pill badge-dark"
+                  >Source: {{ article.source.name }}</span
+                >
+              </div>
+              <div class="col-xs-12  col-md-4">
+                <ul class="social-network social-circle">
+                  <li>
+                    <ShareNetwork
+                      network="facebook"
+                      url="{article.url}"
+                      title="{article.title}"
+                      description="{article.description}"
+                    >
+                      <i class="fa fa-facebook icoFacebook"></i>
+                    </ShareNetwork>
+                  </li>
+                  <li>
+                    <ShareNetwork
+                      network="twitter"
+                      url="{article.url}"
+                      title="{article.title}"
+                    >
+                      <i class="fa fa-twitter icoTwitter"></i>
+                    </ShareNetwork>
+                  </li>
+                  <li>
+                    <ShareNetwork
+                      network="reddit"
+                      url="{article.url}"
+                      title="{article.title}"
+                    >
+                      <i class="fa fa-reddit icoReddit"></i>
+                    </ShareNetwork>
+                  </li>
+                  <li>
+                    <ShareNetwork network="linkedin" url="{article.url}">
+                      <i class="fa fa-linkedin icoLinkedin"></i>
+                    </ShareNetwork>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-xs-12 col-md-4">
+                <a
+                  v-bind:href="article.url"
+                  target="_blank"
+                  class="card-link float-md-right"
+                  >Read more...</a
+                >
+              </div>
             </div>
           </div>
         </div>

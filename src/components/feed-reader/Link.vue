@@ -11,13 +11,12 @@ export default {
 
   computed: {
     linkClass() {
-      let classes =
-        "no-underline p-2 block border-grey border border-b-0 nav-link";
+      let classes = "";
 
       if (this.isActive) {
         classes += " bg-light text-dark active";
       } else {
-        classes += " text-warning hover:bg-warning";
+        classes += "hover:bg-warning";
       }
 
       return classes;
@@ -25,3 +24,21 @@ export default {
   },
 };
 </script>
+<style scoped>
+a,
+a:hover,
+a:focus {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+a {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
+}
+a:hover {
+  color: #fff;
+  background: #318fb5;
+}
+</style>
