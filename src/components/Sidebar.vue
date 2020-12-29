@@ -1,6 +1,10 @@
 <template>
   <div>
-    <nav id="sidebar" class="navbar-collapse collapse bg-dark">
+    <nav
+      v-if="this.$route.name === 'news'"
+      id="sidebar"
+      class="navbar-collapse collapse bg-dark"
+    >
       <ul class="list-unstyled mt-5">
         <li
           class="components"

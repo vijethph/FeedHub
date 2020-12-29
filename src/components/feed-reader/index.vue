@@ -1,35 +1,44 @@
 <template>
   <div>
-  <div class="container-fluid">
-    <button
-      type="button"
-      class="btn btn-warning float-right"
-      data-toggle="modal"
-      data-target="#exampleModal"
+    <nav
+      v-if="this.$route.name === 'rssfeeds'"
+      id="sidebar"
+      class="navbar-collapse collapse bg-dark"
     >
-      Add RSS Feeds
-    </button>
-    <Loading :isLoading="isLoading" />
-    <div v-if="!isLoading" class="row">
       <FeedList
         :feeds="feeds"
         :selectedFeed="selectedFeed"
         @onSelectFeed="handleSelectFeed"
       />
-
+      <center>
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-primary text-center"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          Add RSS Feeds
+        </button>
+      </center>
+    </nav>
+    <div class="row mt-3">
+      <div class="col">
+        <h1 class="mb-6 text-white">Feed Reader</h1>
+      </div>
+    </div>
+    <div class="row">
+      <Loading :isLoading="isLoading" />
+    </div>
+    <div class="row">
       <ArticleList
         :articles="articles"
         :selectedArticle="selectedArticle"
         @onSelectArticle="handleSelectArticle"
       />
-
       <SingleArticle :article="selectedArticle" />
     </div>
-
-    
-  </div>
-  
-  <div
+    <div
       class="modal fade"
       id="exampleModal"
       tabindex="-1"
@@ -80,7 +89,6 @@
         </div>
       </div>
     </div>
-  
   </div>
 </template>
 
@@ -198,4 +206,38 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+#sidebar {
+  padding: 5px;
+  color: #fff;
+  height: 100%;
+  overflow: auto;
+  position: fixed;
+  z-index: 1;
+}
+
+.navbar-collapse {
+  top: 0;
+  left: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  height: 100%;
+}
+
+.navbar-collapse.collapsing {
+  height: 100%;
+  left: -75%;
+  transition: height 0s ease;
+}
+
+.navbar-collapse.show {
+  height: 100%;
+  left: 0;
+  transition: left 400ms ease-in-out;
+}
+
+.navbar-toggler.collapsed ~ .navbar-collapse {
+  transition: left 400ms ease-in;
+}
+</style>

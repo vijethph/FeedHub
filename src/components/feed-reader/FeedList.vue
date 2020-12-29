@@ -1,8 +1,12 @@
 <template>
-  <div class="col-md-2">
-    <h2 class="mb-4 text-white">Feeds</h2>
-    <ul v-if="feeds && feeds.length" class="nav flex-column nav-pills customd">
-      <li v-for="feed in feeds" :key="feed.title" class="nav-item p-2">
+  <div>
+    <ul class="list-unstyled mt-5" v-if="feeds && feeds.length">
+      <li
+        class="components"
+        v-for="feed in feeds"
+        :key="feed.title"
+        @click="selectFeed(feed)"
+      >
         <Link
           @click.native="selectFeed(feed)"
           :isActive="isActive(feed.title)"
@@ -33,10 +37,18 @@ export default {
 };
 </script>
 <style scoped>
-.customd {
+/* .customd {
   height: 350px;
   overflow-y: auto;
   -ms-flex-wrap: nowrap;
   flex-wrap: nowrap;
+} */
+ul li {
+  padding: 10px;
+  font-size: 1.1em;
+  display: block;
 }
+/* ul.CTAs {
+  padding: 20px;
+} */
 </style>

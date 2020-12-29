@@ -1,5 +1,5 @@
 <template>
-  <div v-if="article" class="col-md-6" tabindex="-1">
+  <div v-if="article" class="col-md-8" tabindex="-1">
     <h2 class="mb-2 text-white">Article Details</h2>
     <div class="card">
       <h4 class="mb-4 card-header">{{ article.title }}</h4>

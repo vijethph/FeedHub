@@ -5,21 +5,21 @@
 </template>
 
 <script>
-import VueLoading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/vue-loading.css'
+import VueLoading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/vue-loading.css";
 export default {
-  name: 'Loading',
-  
-  props: ['isLoading'],
-  
-  components: { VueLoading }
-}
+  name: "Loading",
+
+  props: ["isLoading"],
+
+  components: { VueLoading },
+};
 </script>
 
 <style scoped>
 .loading {
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   justify-content: center;
   align-items: center;
   position: fixed;
