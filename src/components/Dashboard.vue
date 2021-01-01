@@ -1,14 +1,10 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <h3 class="text-center p-2 mb-2 bg-warning text-white">Welcome</h3>
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
-      <p>{{ user.displayName }}</p>
-      <p>{{ user.email }}</p>
+      <h3 class="text-center p-2 mb-2 font-weight-bold">Welcome</h3>
+      <img id="profile-img" src="../assets/user.png" class="profile-img-card" />
+      <p><i class="fas fa-user"></i> {{ user.displayName }}</p>
+      <p><i class="fas fa-envelope"></i> {{ user.email }}</p>
       <button
         type="submit"
         class="btn btn-dark btn-lg btn-block"
@@ -23,6 +19,8 @@
 <script>
 import firebase from "firebase";
 
+const db = firebase.firestore();
+
 export default {
   data() {
     return {
@@ -35,6 +33,31 @@ export default {
     if (user) {
       // User is signed in.
       this.user = user;
+      db.collection("userfavs")
+        .doc(user.uid)
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            //console.log("whatever this object is: ", this);
+            console.log("Document data:", doc.data());
+          } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+
+            db.collection("userfavs")
+              .doc(user.uid)
+              .set({ useremail: user.email, newssources: [], rssfeeds: [] })
+              .then(() => {
+                console.log("Users Document successfully created!");
+              })
+              .catch((error) => {
+                console.error("Error creating document for new user: ", error);
+              });
+          }
+        })
+        .catch(function(error) {
+          console.log("Error getting document:", error);
+        });
     } else {
       // No user is signed in.
       this.user = null;

@@ -8,7 +8,7 @@
           :isActive="isActive(item.title)"
           :linkText="item.title"
         />
-	</div> 
+	</div>
 	-->
 
     <ul class="nav flex-column nav-pills customd bg-dark">

@@ -1,16 +1,19 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
-      <h3>Forgot Password</h3>
+      <img id="profile-img" src="../assets/user.png" class="profile-img-card" />
+      <h3 class="font-weight-bold">Forgot Password</h3>
       <form name="form" @submit.prevent="forgetPassword">
         <div class="form-group">
           <label for="username">Email address</label>
-          <input v-model="user.email" type="email" class="form-control" />
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                ><i class="fas fa-envelope"></i
+              ></span>
+            </div>
+            <input v-model="user.email" type="email" class="form-control" />
+          </div>
         </div>
         <div class="form-group">
           <button class="btn btn-primary btn-block" :disabled="loading">

@@ -9,25 +9,25 @@ const routes = [
     path: "/",
     name: "home",
     component: () => import("../views/Home.vue"),
-    meta: { requiresGuest: true },
+    
   },
   {
     path: "/register",
     name: "register",
     component: () => import("../components/Register.vue"),
-    meta: { requiresGuest: true },
+    
   },
   {
     path: "/login",
     name: "login",
     component: () => import("../components/Login.vue"),
-    meta: { requiresGuest: true },
+    
   },
   {
     path: "/forgot-password",
     name: "forgot-password",
     component: () => import("../components/ForgotPassword.vue"),
-    meta: { requiresGuest: true },
+    
   },
   {
     path: "/dashboard",

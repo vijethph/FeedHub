@@ -22,8 +22,10 @@
             </p>
             <div class="row align-items-center text-center">
               <div class="col-xs-12 col-md-4">
-                <span class="badge badge-pill badge-dark"
-                  >Source: {{ article.source.name }}</span
+                <span class="lead">
+                  <span class="badge badge-pill badge-dark"
+                    >Source: {{ article.source.name }}</span
+                  ></span
                 >
               </div>
               <div class="col-xs-12  col-md-4">
@@ -35,7 +37,7 @@
                       title="{article.title}"
                       description="{article.description}"
                     >
-                      <i class="fa fa-facebook icoFacebook"></i>
+                      <i class="fab fa-facebook icoFacebook"></i>
                     </ShareNetwork>
                   </li>
                   <li>
@@ -44,7 +46,7 @@
                       url="{article.url}"
                       title="{article.title}"
                     >
-                      <i class="fa fa-twitter icoTwitter"></i>
+                      <i class="fab fa-twitter icoTwitter"></i>
                     </ShareNetwork>
                   </li>
                   <li>
@@ -53,12 +55,12 @@
                       url="{article.url}"
                       title="{article.title}"
                     >
-                      <i class="fa fa-reddit icoReddit"></i>
+                      <i class="fab fa-reddit icoReddit"></i>
                     </ShareNetwork>
                   </li>
                   <li>
                     <ShareNetwork network="linkedin" url="{article.url}">
-                      <i class="fa fa-linkedin icoLinkedin"></i>
+                      <i class="fab fa-linkedin icoLinkedin"></i>
                     </ShareNetwork>
                   </li>
                 </ul>
@@ -67,7 +69,7 @@
                 <a
                   v-bind:href="article.url"
                   target="_blank"
-                  class="card-link float-md-right"
+                  class="card-link float-md-right btn btn-primary"
                   >Read more...</a
                 >
               </div>

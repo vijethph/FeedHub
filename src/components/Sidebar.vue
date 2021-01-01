@@ -28,7 +28,7 @@
             data-toggle="modal"
             data-target="#exampleModal"
           >
-            Configure Favourites
+            <i class="far fa-heart"></i> Configure Favourites
           </button>
         </li>
       </ul>

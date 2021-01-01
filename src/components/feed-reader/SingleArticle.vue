@@ -5,15 +5,16 @@
       <h4 class="mb-4 card-header">{{ article.title }}</h4>
 
       <div class="mb-4 card-body" v-html="article.content" />
-
-      <a
-        :href="article.link"
-        target="_blank"
-        rel="noopener"
-        class="inline-block bg-teal hover:bg-teal-dark text-dark font-bold py-2 px-4 no-underline card-text"
-      >
-        View original
-      </a>
+      <div class="card-footer text-muted">
+        <a
+          :href="article.link"
+          target="_blank"
+          rel="noopener"
+          class="inline-block bg-teal hover:bg-teal-dark text-dark font-bold py-2 px-4 no-underline card-text"
+        >
+          View original <i class="fas fa-chevron-circle-right"></i>
+        </a>
+      </div>
     </div>
   </div>
 </template>

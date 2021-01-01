@@ -1,48 +1,56 @@
 <template>
   <div class="col-md-12">
     <div class="card card-container">
-      <h3 class="text-center p-2 mb-2">Login</h3>
-      <img
-        id="profile-img"
-        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-        class="profile-img-card"
-      />
+      <h3 class="text-center p-2 mb-2 font-weight-bold">Login</h3>
+      <img id="profile-img" src="../assets/user.png" class="profile-img-card" />
       <form name="form" @submit.prevent="userLogin">
         <div class="form-group">
           <label for="username">Email address</label>
-          <input v-model="user.email" type="email" class="form-control" />
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                ><i class="fas fa-envelope"></i
+              ></span>
+            </div>
+            <input v-model="user.email" type="email" class="form-control" />
+          </div>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input v-model="user.password" type="password" class="form-control" />
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            </div>
+            <input
+              v-model="user.password"
+              type="password"
+              class="form-control"
+            />
+          </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary btn-block" :disabled="loading">
-            <span
-              v-show="loading"
-              class="spinner-border spinner-border-sm"
-            ></span>
-            <span>Login</span>
+          <button class="btn btn-primary btn-block">
+            Login
           </button>
         </div>
         <div class="form-group">
           <p class="forgot-password text-right mt-2 mb-4">
             <router-link to="/forgot-password">Forgot password ?</router-link>
           </p>
-          <button
-            @click="socialLogin"
-            class="btn btn-outline-dark btn-lg btn-block"
-          >
-            <img
-              width="20px"
-              style="margin-bottom:3px; "
-              alt="Google sign-in"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
-            />
-            Sign In With Google
-          </button>
         </div>
       </form>
+      <button
+        @click="socialLogin"
+        class="btn btn-outline-dark btn-lg btn-block"
+      >
+        <img
+          width="20px"
+          style="margin-bottom:3px; "
+          alt="Google sign-in"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+        />
+        Sign In With Google
+      </button>
     </div>
   </div>
 </template>
@@ -75,38 +83,47 @@ export default {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          //    var token = result.credential.accessToken;
+        .signInWithRedirect(provider)
+        .then(function() {
+          firebase
+            .auth()
+            .getRedirectResult()
+            .then((result) => {
+              // This gives you a Google Access Token. You can use it to access the Google API.
+              //    var token = result.credential.accessToken;
 
-          // The signed-in user info.
-          //   var user = result.user;
+              // The signed-in user info.
+              //   var user = result.user;
+              console.log("user object", result.user);
 
-          console.log(result);
+              //console.log(result);
 
-          this.$router.push("/dashboard");
+              this.$router.push("/dashboard");
+            })
+            .catch((error) => {
+              // Handle Errors here.
+              //var errorCode = error.code;
+              //   var errorMessage = error.message;
+
+              // The email of the user's account used.
+              //  var email = error.email;
+
+              // The firebase.auth.AuthCredential type that was used.
+              // var credential = error.credential;
+
+              alert(
+                error.code +
+                  " " +
+                  error.message +
+                  " " +
+                  error.email +
+                  " " +
+                  error.credential
+              );
+            });
         })
         .catch((error) => {
-          // Handle Errors here.
-          //var errorCode = error.code;
-          //   var errorMessage = error.message;
-
-          // The email of the user's account used.
-          //  var email = error.email;
-
-          // The firebase.auth.AuthCredential type that was used.
-          // var credential = error.credential;
-
-          alert(
-            error.code +
-              " " +
-              error.message +
-              " " +
-              error.email +
-              " " +
-              error.credential
-          );
+          alert(error);
         });
     },
   },

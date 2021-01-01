@@ -3,7 +3,7 @@
     <nav
       v-if="this.$route.name === 'rssfeeds'"
       id="sidebar"
-      class="navbar-collapse collapse bg-dark"
+      class="navbar-collapse collapse bg-dark col-sm-6 col-md-3"
     >
       <FeedList
         :feeds="feeds"
@@ -18,10 +18,11 @@
           data-toggle="modal"
           data-target="#exampleModal"
         >
-          Add RSS Feeds
+          <i class="fas fa-rss-square"></i> Add RSS Feeds
         </button>
       </center>
     </nav>
+
     <div class="row mt-3">
       <div class="col">
         <h1 class="mb-6 text-white">Feed Reader</h1>
@@ -164,7 +165,10 @@ export default {
       this.isLoading = true;
 
       axios
-        .post("http://localhost:5000/rssfeeds", body)
+        .post(
+          process.env.RSS_PARSER_URL,
+          body
+        )
         .then((response) => {
           this.feeds = response.data;
           console.log("got rss feeds", response.data);

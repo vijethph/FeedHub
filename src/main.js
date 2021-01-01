@@ -6,6 +6,8 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/assets/main.css";
 import VueSocialSharing from "vue-social-sharing";
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles);
 
 Vue.use(VueSocialSharing);
 Vue.config.productionTip = false;

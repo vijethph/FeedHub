@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <button
-      class="navbar-toggler d-md-block"
+      class="navbar-toggler d-md-block mr-3"
       v-if="
         isLoggedIn &&
           (this.$route.name === 'rssfeeds' || this.$route.name === 'news')
@@ -17,7 +17,17 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- <button class="open">Source</button> -->
-    <a href class="navbar-brand" @click.prevent>NewsRSSApp</a>
+    <router-link to="/" class="navbar-brand font-weight-bold" @click.prevent>
+      <img
+        src="../assets/logo.png"
+        width="30"
+        height="30"
+        class="d-inline-block align-top"
+        alt=""
+      />
+
+      FeedHub</router-link
+    >
     <button
       class="navbar-toggler"
       type="button"
@@ -60,7 +70,7 @@
         <li class="nav-item" v-if="isLoggedIn">
           <button
             v-on:click="logout"
-            class="btn btn-outline-primary text-white"
+            class="btn btn-outline-warning text-white"
           >
             Logout
           </button>
