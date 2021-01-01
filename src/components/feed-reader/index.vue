@@ -127,7 +127,9 @@ export default {
           console.log("oh no.. no doc found");
         } else {
           console.log("hooray, doc found", doc.data().rssfeeds);
-          this.rssurls = doc.data().rssfeeds;
+          if(doc.data().rssfeeds.length){
+            this.rssurls = doc.data().rssfeeds;
+          }
 
           //console.log('modified array: ',this.rssurls);
         }

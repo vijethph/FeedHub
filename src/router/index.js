@@ -57,37 +57,15 @@ const router = new VueRouter({
 
 // Nav Guard
 router.beforeEach((to, from, next) => {
-  // Check for requiresAuth guard
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // Check if NO logged user
-    if (!firebase.auth().currentUser) {
-      // Go to login
-      next({
-        path: "/login",
-        query: {
-          redirect: to.fullPath,
-        },
-      });
-    } else {
-      // Proceed to route
-      next();
-    }
-  } else if (to.matched.some((record) => record.meta.requiresGuest)) {
-    // Check if NO logged user
-    if (firebase.auth().currentUser) {
-      // Go to login
-      next({
-        path: "/register",
-        query: {
-          redirect: to.fullPath,
-        },
-      });
-    } else {
-      // Proceed to route
-      next();
-    }
+  const currentUser = firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) {
+    const loginpath = window.location.pathname;   
+    next({ name: 'login', query: { from: loginpath } });
+  } else if (!requiresAuth && currentUser) {
+    next("/dashboard");
   } else {
-    // Proceed to route
     next();
   }
 });

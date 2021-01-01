@@ -85,7 +85,13 @@ export default {
         .auth()
         .signInWithRedirect(provider)
         .then(function() {
-          firebase
+          
+        })
+        .catch((error) => {
+          alert(error);
+        });
+        
+        firebase
             .auth()
             .getRedirectResult()
             .then((result) => {
@@ -121,10 +127,6 @@ export default {
                   error.credential
               );
             });
-        })
-        .catch((error) => {
-          alert(error);
-        });
     },
   },
 };

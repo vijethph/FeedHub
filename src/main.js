@@ -26,11 +26,23 @@ firebase.initializeApp(firebaseConfig);
 
 //const db = firebase.firestore();
 
-let app = new Vue({
-  router,
-  render: (h) => h(App),
-});
+let app;
 
-firebase.auth().onAuthStateChanged(() => {
-  app.$mount("#app");
+firebase.auth().onAuthStateChanged(user => {
+ if (!app) {
+    //wait to get user
+    
+
+    //start app
+    app = new Vue({
+      router,
+      created() {
+        //redirect if user not logged in
+        if (!user) {
+          this.$router.push("/");
+        }
+      },
+      render: h => h(App)
+    }).$mount("#app");
+  }
 });
