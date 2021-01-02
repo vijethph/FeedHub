@@ -13,13 +13,13 @@ Vue.use(VueSocialSharing);
 Vue.config.productionTip = false;
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBmuhGmAn5MF3jx4k6LAbdbv6yi56RvMZE",
-  authDomain: "newsrssapp.firebaseapp.com",
-  databaseURL: "https://newsrssapp.firebaseio.com",
-  projectId: "newsrssapp",
-  storageBucket: "newsrssapp.appspot.com",
-  messagingSenderId: "879955215758",
-  appId: "1:879955215758:web:23d00154413a56409490df",
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DATABASE_URL,
+  projectId: process.PROJECT_ID,
+  storageBucket: process.env.STORAGE_BUCKET,
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

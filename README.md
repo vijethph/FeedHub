@@ -96,7 +96,16 @@ cd FeedHub
 npm install
 ```
 
-4. Open up Azure Portal, create an Azure Function with HTTP Trigger, and replace the code in Azure Function with the one present in the file `azurefunction.js`. Get the Function URL and put it in `index.vue` file inside `src/components/feed-reader` folder.
+4. Choose any **one** of the following methods for creating RSS parsing server:
+
+   - Local Server Method: Go to `expressrssserver` folder, and run the following commands. The server should be running at `http://localhost:5000`. Put the url in `index.vue` file inside `src/components/feed-reader` folder.
+
+   ```
+   npm install
+   node server.js
+   ```
+
+   - Azure Function Method: Open up Azure Portal, create an Azure Function with HTTP Trigger, and replace the code in Azure Function with the one present in the file `azurefunction.js`. Get the Function URL and put it in `index.vue` file inside `src/components/feed-reader` folder.
 
 5. Run the program using
 

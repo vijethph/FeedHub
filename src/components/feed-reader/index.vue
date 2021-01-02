@@ -18,7 +18,7 @@
           data-toggle="modal"
           data-target="#exampleModal"
         >
-          <i class="fas fa-rss-square"></i> Add RSS Feeds
+          <i class="fas fa-rss-square"></i> Configure RSS Feeds
         </button>
       </center>
     </nav>
@@ -50,7 +50,9 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add RSS Feeds</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+              Configure RSS Feeds
+            </h5>
             <button
               type="button"
               class="close"
@@ -61,6 +63,16 @@
             </button>
           </div>
           <div class="modal-body">
+            <div class="list-group" v-for="rssurl in rssurls" :key="rssurl">
+              <input
+                type="checkbox"
+                name="CheckBoxInputName"
+                :value="rssurl"
+                :id="rssurl"
+                v-model="selectedrssurls"
+              />
+              <label class="list-group-item" :for="rssurl">{{ rssurl }}</label>
+            </div>
             <label for="basic-url">Enter RSS Feed URL</label>
             <div class="input-group mb-3">
               <input
@@ -82,9 +94,16 @@
             <button
               type="button"
               class="btn btn-primary"
-              v-on:click="addRSSUrl"
+              v-on:click="addToList"
             >
-              Add URL
+              Add new URL
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              v-on:click="saveChanges"
+            >
+              Save Changes
             </button>
           </div>
         </div>
@@ -116,6 +135,7 @@ export default {
       articles: [],
       selectedFeed: null,
       selectedArticle: null,
+      selectedrssurls: [],
     };
   },
   created() {
@@ -127,7 +147,7 @@ export default {
           console.log("oh no.. no doc found");
         } else {
           console.log("hooray, doc found", doc.data().rssfeeds);
-          if(doc.data().rssfeeds.length){
+          if (doc.data().rssfeeds.length) {
             this.rssurls = doc.data().rssfeeds;
           }
 
@@ -167,10 +187,7 @@ export default {
       this.isLoading = true;
 
       axios
-        .post(
-          process.env.RSS_PARSER_URL,
-          body
-        )
+        .post(process.env.RSS_PARSING_URL, body)
         .then((response) => {
           this.feeds = response.data;
           console.log("got rss feeds", response.data);
@@ -190,14 +207,17 @@ export default {
       this.articles = feed.items;
       this.selectedArticle = null;
     },
-    addRSSUrl() {
-      console.log(this.addurl);
+    addToList() {
       this.rssurls.push(this.addurl);
+    },
+    saveChanges() {
+      console.log("selected ones", this.selectedrssurls);
+      this.rssurls = this.selectedrssurls;
 
       db.collection("userfavs")
         .doc(firebase.auth().currentUser.uid)
         .update({
-          rssfeeds: firebase.firestore.FieldValue.arrayUnion(this.addurl),
+          rssfeeds: this.rssurls,
         })
         .then(function() {
           console.log("Document successfully updated!");
@@ -245,5 +265,33 @@ export default {
 
 .navbar-toggler.collapsed ~ .navbar-collapse {
   transition: left 400ms ease-in;
+}
+
+.list-group-item {
+  user-select: none;
+}
+
+.list-group input[type="checkbox"] {
+  display: none;
+}
+
+.list-group input[type="checkbox"] + .list-group-item {
+  cursor: pointer;
+}
+
+.list-group input[type="checkbox"] + .list-group-item:before {
+  content: "\2713";
+  color: transparent;
+  font-weight: bold;
+  margin-right: 1em;
+}
+
+.list-group input[type="checkbox"]:checked + .list-group-item {
+  background-color: #0275d8;
+  color: #fff;
+}
+
+.list-group input[type="checkbox"]:checked + .list-group-item:before {
+  color: inherit;
 }
 </style>

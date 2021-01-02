@@ -90,7 +90,7 @@ export default {
   data() {
     return {
       user: null,
-      api_key: "f5a6b6ef4883497f9af5edd3c90920bf",
+      api_key: process.env.NEWSAPI_KEY,
       articles: [],
       errors: [],
     };
