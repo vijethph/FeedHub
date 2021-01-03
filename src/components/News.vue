@@ -90,7 +90,7 @@ export default {
   data() {
     return {
       user: null,
-      api_key: process.env.NEWSAPI_API_KEY,
+      api_key: process.env.VUE_APP_NEWSAPI_API_KEY,
       articles: [],
       errors: [],
     };

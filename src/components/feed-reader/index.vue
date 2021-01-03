@@ -187,7 +187,7 @@ export default {
       this.isLoading = true;
 
       axios
-        .post(process.env.RSS_PARSING_URL, body)
+        .post(process.env.VUE_APP_RSS_PARSING_URL, body)
         .then((response) => {
           this.feeds = response.data;
           console.log("got rss feeds", response.data);
