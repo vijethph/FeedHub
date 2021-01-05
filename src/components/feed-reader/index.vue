@@ -22,7 +22,7 @@
         </button>
       </center>
     </nav>
-
+    <vue-snotify></vue-snotify>
     <div class="row mt-3">
       <div class="col">
         <h1 class="mb-6 text-white">Feed Reader</h1>
@@ -119,7 +119,7 @@ import ArticleList from "./ArticleList.vue";
 import SingleArticle from "./SingleArticle.vue";
 import Loading from "./Loading.vue";
 import firebase from "firebase";
-
+require('dotenv').config();
 const db = firebase.firestore();
 
 export default {
@@ -187,7 +187,7 @@ export default {
       this.isLoading = true;
 
       axios
-        .post(process.env.VUE_APP_RSS_PARSING_URL, body)
+        .post(process.env.VUE_APP_RSS_PARSING_FUNCTION_URL, body)
         .then((response) => {
           this.feeds = response.data;
           console.log("got rss feeds", response.data);
@@ -209,6 +209,12 @@ export default {
     },
     addToList() {
       this.rssurls.push(this.addurl);
+      this.$snotify.success('RSS URL Added!', {
+  timeout: 9000,
+  showProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true
+});
     },
     saveChanges() {
       console.log("selected ones", this.selectedrssurls);

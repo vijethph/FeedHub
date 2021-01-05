@@ -13,20 +13,28 @@
         Log out
       </button>
     </div>
+    <div class="d-flex align-items-center card">
+    <vue-weather :api-key="weather_api_key" units="uk" />
+    </div>
   </div>
 </template>
 
 <script>
 import firebase from "firebase";
-
+import VueWeather from "vue-weather-widget";
+require('dotenv').config();
 const db = firebase.firestore();
 
 export default {
   data() {
     return {
       user: null,
+      weather_api_key: process.env.VUE_APP_WEATHER_API_KEY,
     };
   },
+  components: {
+      VueWeather,
+    },
   created() {
     var user = firebase.auth().currentUser;
 

@@ -48,7 +48,7 @@
 <img src="src/assets/FeedHubLogin.png" width="390" height="300" alt="FeedHub Login Page"> <img src="src/assets/FeedHubNews.png" width="400" height="300" alt="FeedHub News Page">
 <img src="src/assets/FeedHubNewsSources.png" width="390" height="300" alt="FeedHub News Sources Page"> <img src="src/assets/FeedHubRSS.png" width="390" height="300" alt="FeedHub RSS Page">
 
-This is a news aggregator and RSS reader app that uses [Firebase Auth](https://firebase.google.com), [Firestore DB](https://cloud.google.com/firestore), [Vue.js Framework](https://vuejs.org) and [Azure Functions](https://azure.microsoft.com/en-in/services/functions) to fetch news sources and rss feeds, aggregate contents and display them in a user-friendly format. User can authenticate and login with email or Google, view latest news, add and remove favourite news sources, add RSS feeds and subscribe to updates. It also makes use of [NewsAPI](https://newsapi.org) to fetch news from different sources around the world. It fetches and parses RSS feeds with Azure Functions, and is deployed via Firebase Hosting.
+This is a news aggregator and RSS reader app that uses [Firebase Auth](https://firebase.google.com), [Firestore DB](https://cloud.google.com/firestore), [Vue.js Framework](https://vuejs.org) and [Azure Functions](https://azure.microsoft.com/en-in/services/functions) to fetch news sources and rss feeds, aggregate contents and display them in a user-friendly format. User can authenticate and login with email, Google or Microsoft, view latest news, add and remove favourite news sources, add RSS feeds and subscribe to updates. It also makes use of [NewsAPI](https://newsapi.org) to fetch news from different sources around the world. It fetches and parses RSS feeds with Azure Functions, and is deployed via Firebase Hosting.
 
 ### Built With
 
@@ -74,7 +74,7 @@ Node.js>=10 should be installed. After installation, check Node.js version using
 node --version
 ```
 
-You should have a Firebase Account. Log in to [Firebase Console](https://console.firebase.google.com) and create a new project. Add Firebase Credentials to the app in `main.js` file. In Firebase Console, enable authentication with email/password and Google. Create Firestore Database with name as `userfavs`.
+You should have a Firebase Account. Log in to [Firebase Console](https://console.firebase.google.com) and create a new project. Add Firebase Credentials to the app in `main.js` file. In Firebase Console, enable authentication with email/password, Google and Microsoft. Create Firestore Database with name as `userfavs`.
 
 ### Installation
 

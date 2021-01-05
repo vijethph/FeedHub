@@ -40,7 +40,7 @@
         </div>
       </form>
       <button
-        @click="socialLogin"
+        @click="googleLogin"
         class="btn btn-outline-dark btn-lg btn-block"
       >
         <img
@@ -50,6 +50,18 @@
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
         />
         Sign In With Google
+      </button>
+      <button
+        @click="microsoftLogin"
+        class="btn btn-outline-dark btn-lg btn-block"
+      >
+        <img
+          width="20px"
+          style="margin-bottom:3px; "
+          alt="Microsoft sign-in"
+          src="../assets/MSlogo.svg"
+        />
+        Sign In With Microsoft
       </button>
     </div>
   </div>
@@ -79,54 +91,100 @@ export default {
           alert(error.message);
         });
     },
-    socialLogin() {
+    googleLogin() {
       const provider = new firebase.auth.GoogleAuthProvider();
       firebase
         .auth()
         .signInWithRedirect(provider)
-        .then(function() {
-          
-        })
+        .then(function() {})
         .catch((error) => {
           alert(error);
         });
-        
-        firebase
-            .auth()
-            .getRedirectResult()
-            .then((result) => {
-              // This gives you a Google Access Token. You can use it to access the Google API.
-              //    var token = result.credential.accessToken;
 
-              // The signed-in user info.
-              //   var user = result.user;
-              console.log("user object", result.user);
+      firebase
+        .auth()
+        .getRedirectResult()
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          //    var token = result.credential.accessToken;
 
-              //console.log(result);
+          // The signed-in user info.
+          //   var user = result.user;
+          console.log("user object" + result.user);
 
-              this.$router.push("/dashboard");
-            })
-            .catch((error) => {
-              // Handle Errors here.
-              //var errorCode = error.code;
-              //   var errorMessage = error.message;
+          //console.log(result);
 
-              // The email of the user's account used.
-              //  var email = error.email;
+          this.$router.push("/dashboard");
+        })
+        .catch((error) => {
+          // Handle Errors here.
+          //var errorCode = error.code;
+          //   var errorMessage = error.message;
 
-              // The firebase.auth.AuthCredential type that was used.
-              // var credential = error.credential;
+          // The email of the user's account used.
+          //  var email = error.email;
 
-              alert(
-                error.code +
-                  " " +
-                  error.message +
-                  " " +
-                  error.email +
-                  " " +
-                  error.credential
-              );
-            });
+          // The firebase.auth.AuthCredential type that was used.
+          // var credential = error.credential;
+
+          alert(
+            error.code +
+              " " +
+              error.message +
+              " " +
+              error.email +
+              " " +
+              error.credential
+          );
+        });
+    },
+    microsoftLogin() {
+      const provider = new firebase.auth.OAuthProvider("microsoft.com");
+      firebase
+        .auth()
+        .signInWithRedirect(provider)
+        .then(function() {})
+        .catch((error) => {
+          alert(error);
+        });
+
+      firebase
+        .auth()
+        .getRedirectResult()
+        .then((result) => {
+          // IdP data available in result.additionalUserInfo.profile.
+          // ...
+
+          /** @type {firebase.auth.OAuthCredential} */
+          var credential = result.credential;
+
+          // OAuth access and id tokens can also be retrieved:
+          console.log("user credential", credential);
+
+          this.$router.push("/dashboard");
+        })
+
+        .catch((error) => {
+          // Handle Errors here.
+          //var errorCode = error.code;
+          //   var errorMessage = error.message;
+
+          // The email of the user's account used.
+          //  var email = error.email;
+
+          // The firebase.auth.AuthCredential type that was used.
+          // var credential = error.credential;
+
+          alert(
+            error.code +
+              " " +
+              error.message +
+              " " +
+              error.email +
+              " " +
+              error.credential
+          );
+        });
     },
   },
 };
