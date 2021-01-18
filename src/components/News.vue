@@ -106,7 +106,7 @@ export default {
     });
     axios
       .get(
-        "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=" +
+        "https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=" +
           this.api_key
       )
       .then((response) => {
@@ -131,7 +131,7 @@ export default {
     setResource(source) {
       axios
         .get(
-          "https://newsapi.org/v2/top-headlines?sources=" +
+          "https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/top-headlines?sources=" +
             source +
             "&apiKey=" +
             this.api_key

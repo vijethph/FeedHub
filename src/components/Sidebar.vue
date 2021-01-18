@@ -140,7 +140,7 @@ export default {
     //const dataobj = this;
 
     axios
-      .get("https://newsapi.org/v2/sources?language=en&apiKey=" + this.api_key)
+      .get("https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/sources?language=en&apiKey=" + this.api_key)
       .then((response) => {
         //this.articles = response.data.articles
         this.allsources = response.data.sources;
